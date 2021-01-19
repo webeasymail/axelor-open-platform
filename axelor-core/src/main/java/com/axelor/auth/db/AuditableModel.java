@@ -20,12 +20,7 @@ package com.axelor.auth.db;
 import com.axelor.db.Model;
 import com.axelor.db.annotations.Widget;
 import java.time.LocalDateTime;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * The base abstract class with update logging feature.
@@ -43,12 +38,14 @@ public abstract class AuditableModel extends Model {
   private LocalDateTime updatedOn;
 
   @Widget(readonly = true, title = /*$$(*/ "Created by" /*)*/)
+  @JoinColumn(name = "createdBy", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
   @ManyToOne(
       fetch = FetchType.LAZY,
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private User createdBy;
 
   @Widget(readonly = true, title = /*$$(*/ "Updated by" /*)*/)
+  @JoinColumn(name = "updatedBy", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
   @ManyToOne(
       fetch = FetchType.LAZY,
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})

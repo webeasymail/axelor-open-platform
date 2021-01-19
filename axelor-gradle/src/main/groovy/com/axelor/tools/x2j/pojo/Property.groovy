@@ -479,7 +479,8 @@ class Property {
       $joinTable(),
       $orderBy(),
       $sequence(),
-      $converter()
+      $converter(),
+      $foreignKey()
     ]
     .grep { it != null }
     .flatten()
@@ -494,6 +495,14 @@ class Property {
 
   private Annotation annon(String name, boolean empty) {
     return new Annotation(entity, name, empty)
+  }
+
+  private Annotation $foreignKey() {
+    def mapped = attrs.get('mappedBy')
+    if(mapped){
+      return annon("org.hibernate.annotations.ForeignKey")
+          .add("name", "none")
+    }
   }
 
   private Annotation $column() {
@@ -528,6 +537,13 @@ class Property {
       res.add("nullable", nullable, false)
     }
 
+    def foreignKey = annon("javax.persistence.ForeignKey")
+        .add("name", "none")
+        .add("value", entity.importType("javax.persistence.ConstraintMode.NO_CONSTRAINT"),false)
+
+    if (this.type.equalsIgnoreCase("many-to-one")) {
+      res.add("foreignKey", [foreignKey], true , true)
+    }
     return res
   }
 
@@ -738,15 +754,25 @@ class Property {
     if (name != "id")
       return null
 
-    if (!entity.sequential || entity.mappedSuper) {
+    if (entity.generator == 'auto'){
       return [
         annon("javax.persistence.Id", true),
         annon("javax.persistence.GeneratedValue")
         .add("strategy", "javax.persistence.GenerationType.AUTO", false)
       ]
+    }else if(entity.generator == 'assigned'){
+      return [
+        annon("javax.persistence.Id", true),
+        annon("javax.persistence.GeneratedValue")
+        .add("generator", "assigned", true),
+        annon("org.hibernate.annotations.GenericGenerator")
+        .add("name", "assigned", true)
+        .add("strategy", "assigned", true)
+      ]
     }
 
-    def name = entity.table + '_SEQ'
+    // 修改为都用默认的seq
+    def name = 'hibernate_sequence'
 
     [
       annon("javax.persistence.Id", true),
