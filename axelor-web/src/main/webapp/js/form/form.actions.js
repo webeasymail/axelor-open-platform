@@ -751,6 +751,13 @@ ActionHandler.prototype = {
       return deferred.promise;
     }
 
+    // start:
+    if (data.signal === 'window-open'){
+      window.open(data['signal-data'].url);
+      return deferred.promise;
+    }
+    // end:
+
     if(data.flash || data.info) {
       axelor.dialogs.box(data.flash || data.info, {
         onClose: function () {
