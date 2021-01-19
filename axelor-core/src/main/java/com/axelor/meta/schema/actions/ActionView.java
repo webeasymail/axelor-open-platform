@@ -235,6 +235,7 @@ public class ActionView extends Action {
     result.put("domain", domain);
     result.put("context", context);
     result.put("params", viewParams);
+    result.put("name", this.getName());
 
     return result;
   }
@@ -373,6 +374,7 @@ public class ActionView extends Action {
       result.put("domain", view.domain);
       result.put("context", context);
       result.put("params", params);
+      result.put("name", view.getName());
 
       return result;
     }
