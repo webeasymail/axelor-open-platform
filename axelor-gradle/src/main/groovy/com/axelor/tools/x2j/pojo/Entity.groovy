@@ -99,6 +99,8 @@ class Entity {
 
   Entity baseEntity
 
+  String generator
+
   Entity(NodeChild node) {
     name = node.@name
     table = node.@table
@@ -107,7 +109,7 @@ class Entity {
     repoNamespace = node.parent().module."@repo-package"
     tablePrefix = node.parent().module."@table-prefix"
     mappedSuper = node.'@persistable' == 'false'
-    sequential = !(node.'@sequential' == "false")
+    sequential = (node.'@sequential'.text().size() == 0 ? true : (node.'@sequential' == 'false' ? false : true))
     groovy = node.'@lang' == "groovy"
     equalsIncludeAll = node.'@equalsIncludeAll' == "true"
     hashAll = node.'@hashAll' == "true"
@@ -115,7 +117,13 @@ class Entity {
     interfaces = node.'@implements'
     baseClass = node.'@extends'
     strategy = node.'@strategy'
+    generator = node.'@generator'
     documentation = findDocs(node)
+
+    // 兼容sequential ，设置了false，就默认为auto
+    if(!sequential && generator != 'sequential'){
+      generator = 'auto'
+    }
 
     if (!name) {
       throw new IllegalArgumentException("Entity name not given.")
