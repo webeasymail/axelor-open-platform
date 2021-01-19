@@ -149,7 +149,7 @@ public class HotswapSupport extends AbstractSupport {
     }
 
     // idea
-    if (FileUtils.getFile(projectDir, "out", "production").exists()) {
+    if (FileUtils.getFile(projectDir, "out", "production", "classes").exists()) {
       return Stream.of(
           FileUtils.getFile(projectDir, "out", "production", "classes"),
           FileUtils.getFile(projectDir, "out", "production", "resources"));
