@@ -1121,7 +1121,8 @@ ActionHandler.prototype = {
     }
 
     function doOpenView(tab) {
-      tab.action = _.uniqueId('$act');
+      // start:
+      tab.action = tab.name || _.uniqueId('$act');
       if (!tab.viewType)
         tab.viewType = 'grid';
       if (tab.viewType == 'grid' || tab.viewType == 'form')
