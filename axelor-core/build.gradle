@@ -68,4 +68,10 @@ dependencies {
 
   testImplementation libs.greenmail
   testImplementation libs.apache_ds
+
+
+  compileOnly 'org.projectlombok:lombok:1.18.10'
+  annotationProcessor 'org.projectlombok:lombok:1.18.10'
+  testCompileOnly 'org.projectlombok:lombok:1.18.10'
+  testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
 }

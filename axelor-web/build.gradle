@@ -20,6 +20,12 @@ dependencies {
   implementation libs.apache_shiro
   implementation libs.eclipselink_moxy
   implementation libs.pac4j_core
+
+
+  compileOnly 'org.projectlombok:lombok:1.18.10'
+  annotationProcessor 'org.projectlombok:lombok:1.18.10'
+  testCompileOnly 'org.projectlombok:lombok:1.18.10'
+  testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
 
 jar {
