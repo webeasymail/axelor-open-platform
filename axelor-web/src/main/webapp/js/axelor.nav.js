@@ -87,10 +87,12 @@ app.factory('NavService', ['$location', 'MenuService', function($location, MenuS
 
   function openTabByName(name, options) {
 
+    /* start:
     var tab = findTab(name);
     if (tab) {
       return openTab(tab, options);
     }
+    */
 
     return MenuService.action(name).success(function(result){
       if (!result.data) {
@@ -160,6 +162,7 @@ app.factory('NavService', ['$location', 'MenuService', function($location, MenuS
 
     if (useSingleTabOnly()) {
 
+    /* start:
       if (found) {
         return __singleShow(found);
       }
@@ -170,6 +173,7 @@ app.factory('NavService', ['$location', 'MenuService', function($location, MenuS
           __singleShow(tab);
         });
       }
+      */
       return __singleShow(tab);
     }
 
