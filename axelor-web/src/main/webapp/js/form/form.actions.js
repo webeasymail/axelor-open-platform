@@ -639,6 +639,23 @@ ActionHandler.prototype = {
       });
     }
 
+    // start:
+    pattern = /,\s*(verify)\s*(,|$)/;
+    if (pattern.test(action)) {
+      var which = pattern.exec(action)[1];
+      axelor.dialogs.error(_t('Invalid use of "{0}" action, must be the first action.', which));
+      deferred.reject();
+      return deferred.promise;
+    }
+    pattern = /(^verify\s*,\s*)|(^verify$)/;
+    if (pattern.test(action)) {
+      action = action.replace(pattern, '');
+      return this._handleSave(true).then(function() {
+        return self._handleAction(action);
+      });
+    }
+    // end:
+
     pattern = /(^|,)\s*(new)\s*,/;
     if (pattern.test(action)) {
       var which = pattern.exec(action)[2];
