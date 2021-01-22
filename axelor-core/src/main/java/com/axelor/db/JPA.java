@@ -210,6 +210,11 @@ public final class JPA {
     if (bean == null || version == null) {
       return;
     }
+    // start:
+    if (bean.getId() == null){
+      return;
+    }
+    // end:
     final Class<T> klass = EntityHelper.getEntityClass(bean);
     final Model entity = JPA.em().find(klass, bean.getId());
     if (entity == null || !Objects.equal(version, entity.getVersion())) {

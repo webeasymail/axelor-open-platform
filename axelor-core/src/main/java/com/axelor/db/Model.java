@@ -41,7 +41,7 @@ public abstract class Model {
   @Transient private transient boolean selected;
 
   @Widget(massUpdate = true)
-  private Boolean archived;
+  private Boolean archived = Boolean.FALSE;
 
   public abstract Long getId();
 
