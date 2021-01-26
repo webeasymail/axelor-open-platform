@@ -670,6 +670,14 @@ function GridViewCtrl($scope, $element) {
     if ($scope.$details) {
       $scope.$details.selectionChanged(selection);
     }
+
+    // start:
+    var callCheck = $scope.attr("callCheck");
+    if(callCheck && $scope.$events){
+      $scope.$events.onChange();
+    }
+    // end:
+
   };
 
   $scope.onItemClick = function(event, args) {
