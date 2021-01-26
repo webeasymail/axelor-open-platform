@@ -45,9 +45,11 @@ ui.formInput('Number', {
 
     function scale() {
       var value = scope.attr('scale');
-      if (value) {
+      // start:
+      if (typeof(value) != "undefined") {
         return value;
       }
+      // end:
       if ((props.widgetAttrs||{}).scale) {
         return props.widgetAttrs.scale;
       }
