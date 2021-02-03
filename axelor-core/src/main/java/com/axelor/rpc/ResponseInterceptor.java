@@ -77,8 +77,8 @@ public class ResponseInterceptor extends JpaSupport implements MethodInterceptor
       try {
         response = new Response();
         response = onException(e, response);
-        if (log.isTraceEnabled()) {
-          log.trace("Exception: {}", e.getMessage(), e);
+        if (log.isErrorEnabled()) {
+          log.error("Exception: {}", e.getMessage(), e);
         }
       } finally {
         if (txn.isActive()) {
