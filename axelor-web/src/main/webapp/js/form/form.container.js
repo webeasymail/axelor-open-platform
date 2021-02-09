@@ -566,7 +566,7 @@ ui.formWidget('PanelTabs', {
       doOnSelectPending = true;
       scope.waitForActions(function () {
         var elemScope = selected.elem.scope();
-        if (elemScope.handleSelect) {
+        if (elemScope && elemScope.handleSelect) {
           elemScope.handleSelect();
         }
         doOnSelectPending = false;
