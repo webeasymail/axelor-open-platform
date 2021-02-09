@@ -480,7 +480,8 @@ class Property {
       $orderBy(),
       $sequence(),
       $converter(),
-      $foreignKey()
+      $foreignKey(),
+      $where()
     ]
     .grep { it != null }
     .flatten()
@@ -502,6 +503,14 @@ class Property {
     if(mapped){
       return annon("org.hibernate.annotations.ForeignKey")
           .add("name", "none")
+    }
+  }
+
+  private Annotation $where() {
+    def mapped = attrs.get('mappedBy')
+    if(mapped || type == "many-to-many"){
+      return annon("org.hibernate.annotations.Where")
+              .add("clause", "archived = 0")
     }
   }
 
