@@ -990,6 +990,18 @@
         </xsd:restriction>
       </xsd:simpleType>
     </xsd:attribute>
+    <xsd:attribute name="catalog">
+      <xsd:annotation>
+        <xsd:documentation>
+          Catalog name for the entity.
+        </xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="([a-zA-Z]\w+)(_\w+)*" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
     <xsd:attribute name="sequential" type="xsd:boolean">
       <xsd:annotation>
         <xsd:documentation>

@@ -101,6 +101,8 @@ class Entity {
 
   String generator
 
+  String catalog
+
   Entity(NodeChild node) {
     name = node.@name
     table = node.@table
@@ -118,6 +120,7 @@ class Entity {
     baseClass = node.'@extends'
     strategy = node.'@strategy'
     generator = node.'@generator'
+    catalog = node.'@catalog'
     documentation = findDocs(node)
 
     // 兼容sequential ，设置了false，就默认为auto
@@ -588,7 +591,8 @@ $removeCode
       a1.add("uniqueConstraints", constraints, false)
     if (!indexes.empty)
       a1.add("indexes", indexes, false)
-
+    if (catalog)
+      a1.add("catalog", catalog, false)
     return a1
   }
 
